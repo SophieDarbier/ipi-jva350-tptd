@@ -147,8 +147,14 @@ public final class Entreprise {
      * @return
      */
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException("à implémenter en TDD !");
+        if (debut == null || fin == null || d == null) {
+            throw new IllegalArgumentException("Les dates ne peuvent pas être nulles");
+        }
+        if (debut.isAfter(fin)) {
+            return false; // Une plage invalide est considérée comme toujours fausse
+        }
+        return !d.isBefore(debut) && !d.isAfter(fin);
     }
+
 
 }
