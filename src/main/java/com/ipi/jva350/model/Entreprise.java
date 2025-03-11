@@ -85,12 +85,13 @@ public final class Entreprise {
 
     public static double proportionPondereeDuMois(LocalDate moisDuConge) {
         int proportionPonderee = 8;
-        int mois = 1 + (moisDuConge.getMonthValue() + 6) % 12;
+        int mois = moisDuConge.getMonthValue();
+
         if (mois >= 2) {
-            proportionPonderee += 20;
+            proportionPonderee += 16;
         }
         if (mois >= 3) {
-            proportionPonderee += 20;
+            proportionPonderee += 16;
         }
         if (mois >= 4) {
             proportionPonderee += 8;
@@ -119,13 +120,12 @@ public final class Entreprise {
         if (mois >= 12) {
             proportionPonderee += 8;
         }
-        return proportionPonderee / 12d / 10d;
+        return Math.min(proportionPonderee / 100.0, 1.0);
     }
-
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
         return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)
+                : d.getMonthValue() > 5 ? LocalDate.of(d.getYear(), 6, 1)
                 : LocalDate.of(d.getYear() - 1, 6, 1);
     }
 
